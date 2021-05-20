@@ -5,13 +5,12 @@ console.log(PORT)
 const express = require('express');
 const cors = require('cors');
 const app = express();
-// const todo = require('./routes/todo')
 const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser');
 const getController = require('./controllers/getController');
+const getcurrentTaskController = require('./controllers/getcurrentTaskController');
 const addController = require('./controllers/addController');
 const deleteController = require('./controllers/deleteController');
-// const updateController = require('./controllers/todo/updateController');
+const updateController = require('./controllers/updateController');
 const corsOptions = {
     origin: "*",
     methods: ['GET', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -24,15 +23,15 @@ app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
-
 app.use(express.json());
 
 app.use('/addTask', addController);
 
 app.use('/getTasks', getController);
 
-// app.use('/todo/updateTask', updateController);
+app.use('/getcurrentTask/:id', getcurrentTaskController);
+
+app.use('/updateTask', updateController);
 
 app.use('/deleteTask', deleteController);
 
